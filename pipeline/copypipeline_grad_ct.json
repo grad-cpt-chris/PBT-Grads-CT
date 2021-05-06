@@ -1,0 +1,197 @@
+{
+	"name": "copypipeline_grad_ct",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_78w",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_78w",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.schema}.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "adventureworks-lt//@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "DelimitedTextSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									},
+									"formatSettings": {
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_78w",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_schema": "@item().source.schema",
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_78w",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"schema": "dbo",
+							"table": "BuildVersion"
+						},
+						"destination": {
+							"fileName": "dbo.BuildVersion"
+						}
+					},
+					{
+						"source": {
+							"schema": "dbo",
+							"table": "ErrorLog"
+						},
+						"destination": {
+							"fileName": "dbo.ErrorLog"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "Address"
+						},
+						"destination": {
+							"fileName": "SalesLT.Address"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "Customer"
+						},
+						"destination": {
+							"fileName": "SalesLT.Customer"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "CustomerAddress"
+						},
+						"destination": {
+							"fileName": "SalesLT.CustomerAddress"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "Product"
+						},
+						"destination": {
+							"fileName": "SalesLT.Product"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "ProductCategory"
+						},
+						"destination": {
+							"fileName": "SalesLT.ProductCategory"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "ProductDescription"
+						},
+						"destination": {
+							"fileName": "SalesLT.ProductDescription"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "ProductModel"
+						},
+						"destination": {
+							"fileName": "SalesLT.ProductModel"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "ProductModelProductDescription"
+						},
+						"destination": {
+							"fileName": "SalesLT.ProductModelProductDescription"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "SalesOrderDetail"
+						},
+						"destination": {
+							"fileName": "SalesLT.SalesOrderDetail"
+						}
+					},
+					{
+						"source": {
+							"schema": "SalesLT",
+							"table": "SalesOrderHeader"
+						},
+						"destination": {
+							"fileName": "SalesLT.SalesOrderHeader"
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	}
+}
