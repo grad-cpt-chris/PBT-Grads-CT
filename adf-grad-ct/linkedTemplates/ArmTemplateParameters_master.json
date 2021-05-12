@@ -5,11 +5,17 @@
 		"factoryName": {
 			"value": "adf-grad-ct"
 		},
+		"AzureDLSdestination_accountKey": {
+			"value": ""
+		},
 		"AzureDataLakeStoragedestination_accountKey": {
 			"value": ""
 		},
 		"ls_sqldb_adventureworks_lt_connectionString": {
 			"value": ""
+		},
+		"AzureDLSdestination_properties_typeProperties_url": {
+			"value": "https://adlg2gradct.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
 			"value": "https://adlg2gradct.dfs.core.windows.net"

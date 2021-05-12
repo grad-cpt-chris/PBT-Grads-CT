@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-grad-ct"
 		},
+		"AzureDLSdestination_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDLSdestination'"
+		},
 		"AzureDataLakeStoragedestination_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragedestination'"
@@ -14,6 +18,10 @@
 		"ls_sqldb_adventureworks_lt_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqldb_adventureworks_lt'"
+		},
+		"AzureDLSdestination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
 			"type": "string",
@@ -46,11 +54,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDLSdestination_accountKey": {
+						"value": "[parameters('AzureDLSdestination_accountKey')]"
+					},
 					"AzureDataLakeStoragedestination_accountKey": {
 						"value": "[parameters('AzureDataLakeStoragedestination_accountKey')]"
 					},
 					"ls_sqldb_adventureworks_lt_connectionString": {
 						"value": "[parameters('ls_sqldb_adventureworks_lt_connectionString')]"
+					},
+					"AzureDLSdestination_properties_typeProperties_url": {
+						"value": "[parameters('AzureDLSdestination_properties_typeProperties_url')]"
 					},
 					"AzureDataLakeStoragedestination_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStoragedestination_properties_typeProperties_url')]"
