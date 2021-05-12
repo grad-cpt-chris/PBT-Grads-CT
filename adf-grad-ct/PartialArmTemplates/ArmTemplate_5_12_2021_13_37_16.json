@@ -6,38 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-grad-ct"
-		},
-		"AzureDLSdestination_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDLSdestination'"
-		},
-		"AzureDataLakeStoragedestination_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragedestination'"
-		},
-		"AzureDataLakeStoragetarget_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragetarget'"
-		},
-		"AzureSqlDatabasesource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasesource'"
-		},
-		"ls_sqldb_adventureworks_lt_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'ls_sqldb_adventureworks_lt'"
-		},
-		"AzureDLSdestination_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"AzureDataLakeStoragetarget_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -313,42 +281,6 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_sqldb_adventureworks_lt')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDLSdestination')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDLSdestination_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDLSdestination_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStoragedestination')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStoragedestination_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStoragedestination_accountKey')]"
-					}
-				}
-			},
 			"dependsOn": []
 		},
 		{
@@ -359,37 +291,11 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStoragetarget_properties_typeProperties_url')]",
+					"url": "https://adlg2gradct.dfs.core.windows.net",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStoragetarget_accountKey')]"
+						"value": "**********"
 					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabasesource')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabasesource_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ls_sqldb_adventureworks_lt')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('ls_sqldb_adventureworks_lt_connectionString')]"
 				}
 			},
 			"dependsOn": []
