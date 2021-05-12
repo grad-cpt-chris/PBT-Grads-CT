@@ -5,8 +5,7 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=sqlsvr-grad-ct.database.windows.net;initial catalog=AdventureWorks_LT;user id=sysadmin",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkFERi1HUkFELUNUXzY5NzllZTc0LWEwZDktNDU5OS1hOGI4LWYyNDY0Y2JjMDg2YyINCn0="
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlsvr-grad-ct.database.windows.net;Initial Catalog=AdventureWorks_LT"
 		}
 	}
 }
