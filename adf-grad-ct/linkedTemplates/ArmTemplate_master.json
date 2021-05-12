@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragedestination'"
 		},
+		"AzureDataLakeStoragetarget_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragetarget'"
+		},
+		"AzureSqlDatabasesource_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasesource'"
+		},
 		"ls_sqldb_adventureworks_lt_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqldb_adventureworks_lt'"
@@ -24,6 +32,10 @@
 			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
+		},
+		"AzureDataLakeStoragetarget_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		},
@@ -60,6 +72,12 @@
 					"AzureDataLakeStoragedestination_accountKey": {
 						"value": "[parameters('AzureDataLakeStoragedestination_accountKey')]"
 					},
+					"AzureDataLakeStoragetarget_accountKey": {
+						"value": "[parameters('AzureDataLakeStoragetarget_accountKey')]"
+					},
+					"AzureSqlDatabasesource_connectionString": {
+						"value": "[parameters('AzureSqlDatabasesource_connectionString')]"
+					},
 					"ls_sqldb_adventureworks_lt_connectionString": {
 						"value": "[parameters('ls_sqldb_adventureworks_lt_connectionString')]"
 					},
@@ -68,6 +86,9 @@
 					},
 					"AzureDataLakeStoragedestination_properties_typeProperties_url": {
 						"value": "[parameters('AzureDataLakeStoragedestination_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStoragetarget_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStoragetarget_properties_typeProperties_url')]"
 					}
 				}
 			},

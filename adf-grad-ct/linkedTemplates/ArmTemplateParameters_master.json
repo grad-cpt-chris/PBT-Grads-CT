@@ -11,6 +11,12 @@
 		"AzureDataLakeStoragedestination_accountKey": {
 			"value": ""
 		},
+		"AzureDataLakeStoragetarget_accountKey": {
+			"value": ""
+		},
+		"AzureSqlDatabasesource_connectionString": {
+			"value": ""
+		},
 		"ls_sqldb_adventureworks_lt_connectionString": {
 			"value": ""
 		},
@@ -18,6 +24,9 @@
 			"value": "https://adlg2gradct.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
+			"value": "https://adlg2gradct.dfs.core.windows.net"
+		},
+		"AzureDataLakeStoragetarget_properties_typeProperties_url": {
 			"value": "https://adlg2gradct.dfs.core.windows.net"
 		},
 		"containerUri": {

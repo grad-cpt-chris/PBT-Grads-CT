@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragedestination'"
 		},
+		"AzureDataLakeStoragetarget_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStoragetarget'"
+		},
+		"AzureSqlDatabasesource_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasesource'"
+		},
 		"ls_sqldb_adventureworks_lt_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'ls_sqldb_adventureworks_lt'"
@@ -24,6 +32,10 @@
 			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		},
 		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
+		},
+		"AzureDataLakeStoragetarget_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		}
@@ -67,6 +79,36 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStoragetarget')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('AzureDataLakeStoragetarget_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDataLakeStoragetarget_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabasesource')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabasesource_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ls_sqldb_adventureworks_lt')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -80,33 +122,12 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AdventureWorks_LT')]",
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_d7r')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ls_sqldb_adventureworks_lt",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Source Datasets/SQL Database/Database Connections"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_sqldb_adventureworks_lt')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_cml')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDLSdestination",
+					"referenceName": "AzureDataLakeStoragetarget",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -132,83 +153,22 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDLSdestination')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStoragetarget')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SalesLT_Address')]",
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_d7r')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "ls_sqldb_adventureworks_lt",
-					"type": "LinkedServiceReference"
-				},
-				"folder": {
-					"name": "Source Datasets/SQL Database/AdventureWorks_LT"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "AddressID",
-						"type": "int",
-						"precision": 10
-					},
-					{
-						"name": "AddressLine1",
-						"type": "nvarchar"
-					},
-					{
-						"name": "AddressLine2",
-						"type": "nvarchar"
-					},
-					{
-						"name": "City",
-						"type": "nvarchar"
-					},
-					{
-						"name": "StateProvince",
-						"type": "nvarchar"
-					},
-					{
-						"name": "CountryRegion",
-						"type": "nvarchar"
-					},
-					{
-						"name": "PostalCode",
-						"type": "nvarchar"
-					},
-					{
-						"name": "rowguid",
-						"type": "uniqueidentifier"
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					}
-				],
-				"typeProperties": {
-					"schema": "SalesLT",
-					"table": "Address"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_sqldb_adventureworks_lt')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_cml')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_sqldb_adventureworks_lt",
+					"referenceName": "AzureSqlDatabasesource",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
+					"cw_schema": {
+						"type": "String"
+					},
 					"cw_table": {
 						"type": "String"
 					}
@@ -217,7 +177,10 @@
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
-					"schema": "SalesLT",
+					"schema": {
+						"value": "@dataset().cw_schema",
+						"type": "Expression"
+					},
 					"table": {
 						"value": "@dataset().cw_table",
 						"type": "Expression"
@@ -225,17 +188,17 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_sqldb_adventureworks_lt')]"
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabasesource')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Copypipeline_001')]",
+			"name": "[concat(parameters('factoryName'), '/CopyPipeline_d7r')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "ForEach_cml",
+						"name": "ForEach_d7r",
 						"type": "ForEach",
 						"dependsOn": [],
 						"userProperties": [],
@@ -246,7 +209,7 @@
 							},
 							"activities": [
 								{
-									"name": "Copy_cml",
+									"name": "Copy_d7r",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -259,7 +222,7 @@
 									"userProperties": [
 										{
 											"name": "Source",
-											"value": "SalesLT.@{item().source.table}"
+											"value": "@{item().source.schema}.@{item().source.table}"
 										},
 										{
 											"name": "Destination",
@@ -269,10 +232,6 @@
 									"typeProperties": {
 										"source": {
 											"type": "AzureSqlSource",
-											"queryTimeout": {
-												"value": "@item().copySource.queryTimeout",
-												"type": "Expression"
-											},
 											"partitionOption": "None"
 										},
 										"sink": {
@@ -291,16 +250,17 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "SourceDataset_cml",
+											"referenceName": "SourceDataset_d7r",
 											"type": "DatasetReference",
 											"parameters": {
+												"cw_schema": "@item().source.schema",
 												"cw_table": "@item().source.table"
 											}
 										}
 									],
 									"outputs": [
 										{
-											"referenceName": "DestinationDataset_cml",
+											"referenceName": "DestinationDataset_d7r",
 											"type": "DatasetReference",
 											"parameters": {
 												"cw_fileName": "@item().destination.fileName"
@@ -318,112 +278,110 @@
 						"defaultValue": [
 							{
 								"source": {
+									"schema": "dbo",
+									"table": "BuildVersion"
+								},
+								"destination": {
+									"fileName": "dboBuildVersion"
+								}
+							},
+							{
+								"source": {
+									"schema": "dbo",
+									"table": "ErrorLog"
+								},
+								"destination": {
+									"fileName": "dboErrorLog"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
 									"table": "Address"
 								},
 								"destination": {
 									"fileName": "SalesLTAddress"
-								},
-								"copySource": {
-									"queryTimeout": "00:10:00"
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "Customer"
 								},
 								"destination": {
 									"fileName": "SalesLTCustomer"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "CustomerAddress"
 								},
 								"destination": {
 									"fileName": "SalesLTCustomerAddress"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "Product"
 								},
 								"destination": {
 									"fileName": "SalesLTProduct"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "ProductCategory"
 								},
 								"destination": {
 									"fileName": "SalesLTProductCategory"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "ProductDescription"
 								},
 								"destination": {
 									"fileName": "SalesLTProductDescription"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "ProductModel"
 								},
 								"destination": {
 									"fileName": "SalesLTProductModel"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "ProductModelProductDescription"
 								},
 								"destination": {
 									"fileName": "SalesLTProductModelProductDescription"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "SalesOrderDetail"
 								},
 								"destination": {
 									"fileName": "SalesLTSalesOrderDetail"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							},
 							{
 								"source": {
+									"schema": "SalesLT",
 									"table": "SalesOrderHeader"
 								},
 								"destination": {
 									"fileName": "SalesLTSalesOrderHeader"
-								},
-								"copySource": {
-									"queryTimeout": null
 								}
 							}
 						]
@@ -432,8 +390,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_cml')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_cml')]"
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_d7r')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_d7r')]"
 			]
 		}
 	]
