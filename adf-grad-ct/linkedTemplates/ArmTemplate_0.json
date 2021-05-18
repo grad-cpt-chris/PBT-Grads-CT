@@ -122,7 +122,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_g4a')]",
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_pnv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -144,7 +144,7 @@
 							"value": "@dataset().cw_fileName",
 							"type": "Expression"
 						},
-						"fileSystem": "sql-azure-db-extract"
+						"fileSystem": "adlg2-copycontainer-grad-ct"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -157,7 +157,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_g4a')]",
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_pnv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -192,13 +192,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline_g4a')]",
+			"name": "[concat(parameters('factoryName'), '/pl_copytolake_grad_ct')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "ForEach_g4a",
+						"name": "ForEach_pnv",
 						"type": "ForEach",
 						"dependsOn": [],
 						"userProperties": [],
@@ -209,7 +209,7 @@
 							},
 							"activities": [
 								{
-									"name": "Copy_g4a",
+									"name": "Copy_pnv",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -226,7 +226,7 @@
 										},
 										{
 											"name": "Destination",
-											"value": "sql-azure-db-extract//@{item().destination.fileName}"
+											"value": "adlg2-copycontainer-grad-ct//@{item().destination.fileName}"
 										}
 									],
 									"typeProperties": {
@@ -250,7 +250,7 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "SourceDataset_g4a",
+											"referenceName": "SourceDataset_pnv",
 											"type": "DatasetReference",
 											"parameters": {
 												"cw_schema": "@item().source.schema",
@@ -260,7 +260,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DestinationDataset_g4a",
+											"referenceName": "DestinationDataset_pnv",
 											"type": "DatasetReference",
 											"parameters": {
 												"cw_fileName": "@item().destination.fileName"
@@ -282,7 +282,7 @@
 									"table": "BuildVersion"
 								},
 								"destination": {
-									"fileName": "dbo.BuildVersion"
+									"fileName": "dboBuildVersion"
 								}
 							},
 							{
@@ -291,7 +291,7 @@
 									"table": "ErrorLog"
 								},
 								"destination": {
-									"fileName": "dbo.ErrorLog"
+									"fileName": "dboErrorLog"
 								}
 							},
 							{
@@ -300,7 +300,7 @@
 									"table": "Address"
 								},
 								"destination": {
-									"fileName": "SalesLT.Address"
+									"fileName": "SalesLTAddress"
 								}
 							},
 							{
@@ -309,7 +309,7 @@
 									"table": "Customer"
 								},
 								"destination": {
-									"fileName": "SalesLT.Customer"
+									"fileName": "SalesLTCustomer"
 								}
 							},
 							{
@@ -318,7 +318,7 @@
 									"table": "CustomerAddress"
 								},
 								"destination": {
-									"fileName": "SalesLT.CustomerAddress"
+									"fileName": "SalesLTCustomerAddress"
 								}
 							},
 							{
@@ -327,7 +327,7 @@
 									"table": "Product"
 								},
 								"destination": {
-									"fileName": "SalesLT.Product"
+									"fileName": "SalesLTProduct"
 								}
 							},
 							{
@@ -336,7 +336,7 @@
 									"table": "ProductCategory"
 								},
 								"destination": {
-									"fileName": "SalesLT.ProductCategory"
+									"fileName": "SalesLTProductCategory"
 								}
 							},
 							{
@@ -345,7 +345,7 @@
 									"table": "ProductDescription"
 								},
 								"destination": {
-									"fileName": "SalesLT.ProductDescription"
+									"fileName": "SalesLTProductDescription"
 								}
 							},
 							{
@@ -354,7 +354,7 @@
 									"table": "ProductModel"
 								},
 								"destination": {
-									"fileName": "SalesLT.ProductModel"
+									"fileName": "SalesLTProductModel"
 								}
 							},
 							{
@@ -363,7 +363,7 @@
 									"table": "ProductModelProductDescription"
 								},
 								"destination": {
-									"fileName": "SalesLT.ProductModelProductDescription"
+									"fileName": "SalesLTProductModelProductDescription"
 								}
 							},
 							{
@@ -372,7 +372,7 @@
 									"table": "SalesOrderDetail"
 								},
 								"destination": {
-									"fileName": "SalesLT.SalesOrderDetail"
+									"fileName": "SalesLTSalesOrderDetail"
 								}
 							},
 							{
@@ -381,7 +381,7 @@
 									"table": "SalesOrderHeader"
 								},
 								"destination": {
-									"fileName": "SalesLT.SalesOrderHeader"
+									"fileName": "SalesLTSalesOrderHeader"
 								}
 							}
 						]
@@ -390,8 +390,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_g4a')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_g4a')]"
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_pnv')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_pnv')]"
 			]
 		}
 	]
