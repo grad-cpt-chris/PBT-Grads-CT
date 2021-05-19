@@ -49,7 +49,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_DestinationDataSet_grad_ct",
+						"referenceName": "ds_DestinationDataSet_grad_ct_1",
 						"type": "DatasetReference"
 					}
 				]
