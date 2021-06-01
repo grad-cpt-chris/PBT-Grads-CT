@@ -1,0 +1,12 @@
+{
+	"name": "AdventureWorks_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AdventureWorks_Source_Database",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
