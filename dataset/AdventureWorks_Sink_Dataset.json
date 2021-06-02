@@ -12,7 +12,7 @@
 				"type": "AzureBlobFSLocation",
 				"fileName": "@{item().Table_Name}",
 				"folderPath": "AdventureWorks",
-				"fileSystem": "adlsgen2copygradct"
+				"fileSystem": "adventureworks-target"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
