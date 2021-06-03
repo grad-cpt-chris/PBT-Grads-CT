@@ -7,39 +7,15 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-grad-ct"
 		},
-		"AzureDataLakeSource_Synapse_accountKey": {
+		"LS_ADLGEN2_ADF_AdventureWorksLT_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeSource_Synapse'"
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLGEN2_ADF_AdventureWorksLT'"
 		},
-		"AzureDataLakeStorage_target_accountKey": {
+		"LS_SQLDB_ADF_AdventureWorksLT_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_target'"
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB_ADF_AdventureWorksLT'"
 		},
-		"AzureSqlDatabasesource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasesource'"
-		},
-		"DataSource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DataSource'"
-		},
-		"LS_AdventureWorks_Source_Database_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_AdventureWorks_Source_Database'"
-		},
-		"LS_AdventureWorks_Target_Datalake_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_AdventureWorks_Target_Datalake'"
-		},
-		"AzureDataLakeSource_Synapse_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"AzureDataLakeStorage_target_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"LS_AdventureWorks_Target_Datalake_properties_typeProperties_url": {
+		"LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		}
@@ -49,153 +25,44 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeSource_Synapse')]",
+			"name": "[concat(parameters('factoryName'), '/LS_ADLGEN2_ADF_AdventureWorksLT')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "AzureDataLakeSource_Synapse",
+				"description": "LS_ADLGEN2_ADF_AdventureWorksLT",
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('AzureDataLakeSource_Synapse_properties_typeProperties_url')]",
+					"url": "[parameters('LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url')]",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeSource_Synapse_accountKey')]"
+						"value": "[parameters('LS_ADLGEN2_ADF_AdventureWorksLT_accountKey')]"
 					}
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureDataLakeStorage_target')]",
+			"name": "[concat(parameters('factoryName'), '/LS_SQLDB_ADF_AdventureWorksLT')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage_target_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage_target_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabasesource')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
+				"description": "LS_SQLDB_ADF_AdventureWorksLT",
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabasesource_connectionString')]"
+					"connectionString": "[parameters('LS_SQLDB_ADF_AdventureWorksLT_connectionString')]"
 				}
 			},
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DataSource')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('DataSource_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_AdventureWorks_Source_Database')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_AdventureWorks_Source_Database_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_AdventureWorks_Target_Datalake')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_AdventureWorks_Target_Datalake_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('LS_AdventureWorks_Target_Datalake_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AdventureWorks_Sink_Dataset')]",
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_so4')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "LS_AdventureWorks_Target_Datalake",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@{item().Table_Name}",
-							"type": "Expression"
-						},
-						"folderPath": "AdventureWorks",
-						"fileSystem": "adventureworks-target"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_AdventureWorks_Target_Datalake')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AdventureWorks_dataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_AdventureWorks_Source_Database",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_AdventureWorks_Source_Database')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_yy3')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureDataLakeStorage_target",
+					"referenceName": "LS_ADLGEN2_ADF_AdventureWorksLT",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -212,7 +79,7 @@
 							"value": "@dataset().cw_fileName",
 							"type": "Expression"
 						},
-						"fileSystem": "adventureworks-storage"
+						"fileSystem": "contaiiiiner"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -221,16 +88,16 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage_target')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLGEN2_ADF_AdventureWorksLT')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_yy3')]",
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_so4')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabasesource",
+					"referenceName": "LS_SQLDB_ADF_AdventureWorksLT",
 					"type": "LinkedServiceReference"
 				},
 				"parameters": {
@@ -256,18 +123,17 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabasesource')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB_ADF_AdventureWorksLT')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Copydata_from_SQLdb_to_datalake')]",
+			"name": "[concat(parameters('factoryName'), '/pL')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Copydata_from_SQLdb_to_datalake",
 				"activities": [
 					{
-						"name": "ForEach_yy3",
+						"name": "ForEach_so4",
 						"type": "ForEach",
 						"dependsOn": [],
 						"userProperties": [],
@@ -278,7 +144,7 @@
 							},
 							"activities": [
 								{
-									"name": "Copy_yy3",
+									"name": "Copy_so4",
 									"type": "Copy",
 									"dependsOn": [],
 									"policy": {
@@ -295,7 +161,7 @@
 										},
 										{
 											"name": "Destination",
-											"value": "adventureworks-storage//@{item().destination.fileName}"
+											"value": "contaiiiiner//@{item().destination.fileName}"
 										}
 									],
 									"typeProperties": {
@@ -319,7 +185,7 @@
 									},
 									"inputs": [
 										{
-											"referenceName": "SourceDataset_yy3",
+											"referenceName": "SourceDataset_so4",
 											"type": "DatasetReference",
 											"parameters": {
 												"cw_schema": "@item().source.schema",
@@ -329,7 +195,7 @@
 									],
 									"outputs": [
 										{
-											"referenceName": "DestinationDataset_yy3",
+											"referenceName": "DestinationDataset_so4",
 											"type": "DatasetReference",
 											"parameters": {
 												"cw_fileName": "@item().destination.fileName"
@@ -388,6 +254,60 @@
 								},
 								"destination": {
 									"fileName": "SalesLTCustomerAddress.txt"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
+									"table": "Date"
+								},
+								"destination": {
+									"fileName": "SalesLTDate.txt"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
+									"table": "Dim_Address"
+								},
+								"destination": {
+									"fileName": "SalesLTDim_Address.txt"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
+									"table": "Dim_Customer"
+								},
+								"destination": {
+									"fileName": "SalesLTDim_Customer.txt"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
+									"table": "Dim_Product"
+								},
+								"destination": {
+									"fileName": "SalesLTDim_Product.txt"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
+									"table": "Fact_SalesOrder"
+								},
+								"destination": {
+									"fileName": "SalesLTFact_SalesOrder.txt"
+								}
+							},
+							{
+								"source": {
+									"schema": "SalesLT",
+									"table": "Fact_SalesOrderDetail"
+								},
+								"destination": {
+									"fileName": "SalesLTFact_SalesOrderDetail.txt"
 								}
 							},
 							{
@@ -459,186 +379,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_yy3')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_yy3')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Get-Tables",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": "SELECT QUOTENAME(table_Schema)+'.'+QUOTENAME(TABLE_NAME) AS Table_Name \n   FROM information_Schema.tables",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "AdventureWorks_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Copy-Each-Table",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Get-Tables",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Get-Tables').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "Export-Table",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "AzureSqlSource",
-											"sqlReaderQuery": {
-												"value": "SELECT * FROM @{item().Table_Name}",
-												"type": "Expression"
-											},
-											"queryTimeout": "02:00:00",
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".txt"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "AdventureWorks_dataset",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "AdventureWorks_Sink_Dataset",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
-								}
-							]
-						}
-					},
-					{
-						"name": "Copy-Table",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"sqlReaderQuery": {
-									"value": "SELECT * FROM @{item('myForEachName').Table_Name}",
-									"type": "Expression"
-								},
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "AdventureWorks_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "AdventureWorks_Sink_Dataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/AdventureWorks_dataset')]",
-				"[concat(variables('factoryId'), '/datasets/AdventureWorks_Sink_Dataset')]"
+				"[concat(variables('factoryId'), '/datasets/SourceDataset_so4')]",
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_so4')]"
 			]
 		}
 	]

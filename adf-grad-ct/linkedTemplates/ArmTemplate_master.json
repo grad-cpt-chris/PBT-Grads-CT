@@ -7,39 +7,15 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-grad-ct"
 		},
-		"AzureDataLakeSource_Synapse_accountKey": {
+		"LS_ADLGEN2_ADF_AdventureWorksLT_accountKey": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeSource_Synapse'"
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLGEN2_ADF_AdventureWorksLT'"
 		},
-		"AzureDataLakeStorage_target_accountKey": {
+		"LS_SQLDB_ADF_AdventureWorksLT_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_target'"
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB_ADF_AdventureWorksLT'"
 		},
-		"AzureSqlDatabasesource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasesource'"
-		},
-		"DataSource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DataSource'"
-		},
-		"LS_AdventureWorks_Source_Database_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_AdventureWorks_Source_Database'"
-		},
-		"LS_AdventureWorks_Target_Datalake_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_AdventureWorks_Target_Datalake'"
-		},
-		"AzureDataLakeSource_Synapse_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"AzureDataLakeStorage_target_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"LS_AdventureWorks_Target_Datalake_properties_typeProperties_url": {
+		"LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		},
@@ -70,32 +46,14 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"AzureDataLakeSource_Synapse_accountKey": {
-						"value": "[parameters('AzureDataLakeSource_Synapse_accountKey')]"
+					"LS_ADLGEN2_ADF_AdventureWorksLT_accountKey": {
+						"value": "[parameters('LS_ADLGEN2_ADF_AdventureWorksLT_accountKey')]"
 					},
-					"AzureDataLakeStorage_target_accountKey": {
-						"value": "[parameters('AzureDataLakeStorage_target_accountKey')]"
+					"LS_SQLDB_ADF_AdventureWorksLT_connectionString": {
+						"value": "[parameters('LS_SQLDB_ADF_AdventureWorksLT_connectionString')]"
 					},
-					"AzureSqlDatabasesource_connectionString": {
-						"value": "[parameters('AzureSqlDatabasesource_connectionString')]"
-					},
-					"DataSource_connectionString": {
-						"value": "[parameters('DataSource_connectionString')]"
-					},
-					"LS_AdventureWorks_Source_Database_connectionString": {
-						"value": "[parameters('LS_AdventureWorks_Source_Database_connectionString')]"
-					},
-					"LS_AdventureWorks_Target_Datalake_accountKey": {
-						"value": "[parameters('LS_AdventureWorks_Target_Datalake_accountKey')]"
-					},
-					"AzureDataLakeSource_Synapse_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeSource_Synapse_properties_typeProperties_url')]"
-					},
-					"AzureDataLakeStorage_target_properties_typeProperties_url": {
-						"value": "[parameters('AzureDataLakeStorage_target_properties_typeProperties_url')]"
-					},
-					"LS_AdventureWorks_Target_Datalake_properties_typeProperties_url": {
-						"value": "[parameters('LS_AdventureWorks_Target_Datalake_properties_typeProperties_url')]"
+					"LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url')]"
 					}
 				}
 			},
