@@ -6,125 +6,12 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-grad-ct"
-		},
-		"LS_ADLGEN2_ADF_AdventureWorksLT_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_ADLGEN2_ADF_AdventureWorksLT'"
-		},
-		"LS_SQLDB_ADF_AdventureWorksLT_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_SQLDB_ADF_AdventureWorksLT'"
-		},
-		"LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_ADLGEN2_ADF_AdventureWorksLT')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobFS",
-				"typeProperties": {
-					"url": "[parameters('LS_ADLGEN2_ADF_AdventureWorksLT_properties_typeProperties_url')]",
-					"accountKey": {
-						"type": "SecureString",
-						"value": "[parameters('LS_ADLGEN2_ADF_AdventureWorksLT_accountKey')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_SQLDB_ADF_AdventureWorksLT')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "LS_SQLDB_ADF_AdventureWorksLT",
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_SQLDB_ADF_AdventureWorksLT_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_srg')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_ADLGEN2_ADF_AdventureWorksLT",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"cw_fileName": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().cw_fileName",
-							"type": "Expression"
-						},
-						"fileSystem": "adventureworks-container"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_ADLGEN2_ADF_AdventureWorksLT')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_srg')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LS_SQLDB_ADF_AdventureWorksLT",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"cw_schema": {
-						"type": "String"
-					},
-					"cw_table": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {
-					"schema": {
-						"value": "@dataset().cw_schema",
-						"type": "Expression"
-					},
-					"table": {
-						"value": "@dataset().cw_table",
-						"type": "Expression"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LS_SQLDB_ADF_AdventureWorksLT')]"
-			]
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/AdventureWorks_CopyPL_SQL_To_Lake')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -382,6 +269,91 @@
 				"[concat(variables('factoryId'), '/datasets/SourceDataset_srg')]",
 				"[concat(variables('factoryId'), '/datasets/DestinationDataset_srg')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DestinationDataset_srg')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLGEN2_ADF_AdventureWorksLT",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"cw_fileName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().cw_fileName",
+							"type": "Expression"
+						},
+						"fileSystem": "adventureworks-container"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLGEN2_ADF_AdventureWorksLT')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SourceDataset_srg')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLDB_ADF_AdventureWorksLT",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"cw_schema": {
+						"type": "String"
+					},
+					"cw_table": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().cw_schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().cw_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADLGEN2_ADF_AdventureWorksLT')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "https://adlg2gradct.dfs.core.windows.net",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "**********"
+					}
+				}
+			},
+			"dependsOn": []
 		}
 	]
 }
