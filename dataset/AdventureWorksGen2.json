@@ -1,0 +1,25 @@
+{
+	"name": "AdventureWorksGen2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLGEN2_ADF_AdventureWorksLT",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Azure_datalake"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "AdventureWorks",
+				"fileSystem": "adventureworks-container"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
