@@ -1,0 +1,15 @@
+{
+	"name": "AdventureWorks_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLDB_ADF_AdventureWorksLT",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SQL DB"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
