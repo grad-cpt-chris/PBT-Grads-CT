@@ -305,6 +305,7 @@
 							"value": "@dataset().cw_fileName",
 							"type": "Expression"
 						},
+						"folderPath": "AdventureWorks",
 						"fileSystem": "adventureworks-container"
 					},
 					"columnDelimiter": ",",
