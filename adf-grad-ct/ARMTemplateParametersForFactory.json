@@ -5,28 +5,31 @@
 		"factoryName": {
 			"value": "adf-grad-ct"
 		},
-		"AzureDLSdestination_accountKey": {
+		"AzureDataLakeSource_Synapse_accountKey": {
 			"value": ""
 		},
-		"AzureDataLakeStoragedestination_accountKey": {
-			"value": ""
-		},
-		"AzureDataLakeStoragetarget_accountKey": {
+		"AzureDataLakeStorage_target_accountKey": {
 			"value": ""
 		},
 		"AzureSqlDatabasesource_connectionString": {
 			"value": ""
 		},
-		"ls_sqldb_adventureworks_lt_connectionString": {
+		"DataSource_connectionString": {
 			"value": ""
 		},
-		"AzureDLSdestination_properties_typeProperties_url": {
+		"LS_AdventureWorks_Source_Database_connectionString": {
+			"value": ""
+		},
+		"LS_AdventureWorks_Target_Datalake_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeSource_Synapse_properties_typeProperties_url": {
 			"value": "https://adlg2gradct.dfs.core.windows.net"
 		},
-		"AzureDataLakeStoragedestination_properties_typeProperties_url": {
+		"AzureDataLakeStorage_target_properties_typeProperties_url": {
 			"value": "https://adlg2gradct.dfs.core.windows.net"
 		},
-		"AzureDataLakeStoragetarget_properties_typeProperties_url": {
+		"LS_AdventureWorks_Target_Datalake_properties_typeProperties_url": {
 			"value": "https://adlg2gradct.dfs.core.windows.net"
 		}
 	}

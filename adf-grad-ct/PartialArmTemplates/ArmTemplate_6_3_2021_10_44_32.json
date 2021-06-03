@@ -6,42 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "adf-grad-ct"
-		},
-		"AzureDataLakeSource_Synapse_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeSource_Synapse'"
-		},
-		"AzureDataLakeStorage_target_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'AzureDataLakeStorage_target'"
-		},
-		"AzureSqlDatabasesource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabasesource'"
-		},
-		"DataSource_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DataSource'"
-		},
-		"LS_AdventureWorks_Source_Database_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_AdventureWorks_Source_Database'"
-		},
-		"LS_AdventureWorks_Target_Datalake_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_AdventureWorks_Target_Datalake'"
-		},
-		"AzureDataLakeSource_Synapse_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"AzureDataLakeStorage_target_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
-		},
-		"LS_AdventureWorks_Target_Datalake_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://adlg2gradct.dfs.core.windows.net"
 		}
 	},
 	"variables": {
@@ -279,8 +243,7 @@
 							},
 							"dataset": {
 								"referenceName": "AdventureWorks_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							},
 							"firstRowOnly": false
 						}
@@ -349,15 +312,13 @@
 									"inputs": [
 										{
 											"referenceName": "AdventureWorks_dataset",
-											"type": "DatasetReference",
-											"parameters": {}
+											"type": "DatasetReference"
 										}
 									],
 									"outputs": [
 										{
 											"referenceName": "AdventureWorks_Sink_Dataset",
-											"type": "DatasetReference",
-											"parameters": {}
+											"type": "DatasetReference"
 										}
 									]
 								}
@@ -410,15 +371,13 @@
 						"inputs": [
 							{
 								"referenceName": "AdventureWorks_dataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "AdventureWorks_Sink_Dataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
@@ -473,8 +432,7 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_AdventureWorks_Source_Database')]"
@@ -559,10 +517,10 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('AzureDataLakeSource_Synapse_properties_typeProperties_url')]",
+					"url": "https://adlg2gradct.dfs.core.windows.net",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeSource_Synapse_accountKey')]"
+						"value": "**********"
 					}
 				}
 			},
@@ -576,10 +534,10 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('AzureDataLakeStorage_target_properties_typeProperties_url')]",
+					"url": "https://adlg2gradct.dfs.core.windows.net",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('AzureDataLakeStorage_target_accountKey')]"
+						"value": "**********"
 					}
 				}
 			},
@@ -593,7 +551,10 @@
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabasesource_connectionString')]"
+					"connectionString": {
+						"type": "SecureString",
+						"value": "**********"
+					}
 				}
 			},
 			"dependsOn": []
@@ -606,7 +567,10 @@
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"connectionString": "[parameters('DataSource_connectionString')]"
+					"connectionString": {
+						"type": "SecureString",
+						"value": "**********"
+					}
 				}
 			},
 			"dependsOn": []
@@ -619,7 +583,10 @@
 				"annotations": [],
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
-					"connectionString": "[parameters('LS_AdventureWorks_Source_Database_connectionString')]"
+					"connectionString": {
+						"type": "SecureString",
+						"value": "**********"
+					}
 				}
 			},
 			"dependsOn": []
@@ -632,10 +599,10 @@
 				"annotations": [],
 				"type": "AzureBlobFS",
 				"typeProperties": {
-					"url": "[parameters('LS_AdventureWorks_Target_Datalake_properties_typeProperties_url')]",
+					"url": "https://adlg2gradct.dfs.core.windows.net",
 					"accountKey": {
 						"type": "SecureString",
-						"value": "[parameters('LS_AdventureWorks_Target_Datalake_accountKey')]"
+						"value": "**********"
 					}
 				}
 			},
