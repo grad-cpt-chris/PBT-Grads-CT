@@ -1,0 +1,11 @@
+{
+	"name": "ls_sqldatabase_adf_Adventureworkslt",
+	"properties": {
+		"description": "ls_sqldatabase_adf_Adventureworkslt",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=sqlsvr-grad-ct.database.windows.net;Initial Catalog=AdventureWorks_LT"
+		}
+	}
+}
